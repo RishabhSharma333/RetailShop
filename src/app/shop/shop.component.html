@@ -1,1 +1,187 @@
-<p>shop works!</p>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+<div class="row">
+    <div class="columns">
+        <div class="column is-5">
+            <article class="panel">
+                <p class="panel-heading">
+                   Item Stock
+                </p>
+                <br>
+                <div class="panel-block">
+                    <div class="column ">
+                        <p class="control has-icons-left">
+                            <input class="input is-info" type="search"
+                                placeholder="Search {{searchItemByName? 'Item By Name':'Item By Company'}}"
+                                [(ngModel)]=searchField>
+                            <span class="icon is-left">
+                                <i class="ri-search-2-line" aria-hidden="true"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="column ">
+                        <div class="columns">
+                            <div class="column">
+                                <div class="dropdown is-hoverable ">
+                                    <div class="dropdown-trigger">
+                                        <button class="button" aria-haspopup="true">
+                                            <span>Search By </span>
+                                            <span class="icon is-small">
+                                                <i class="ri-arrow-drop-down-line" aria-hidden="true"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="dropdown-menu " id="dropdown-menu" role="menu">
+                                        <div class="dropdown-content" style="width: fit-content;">
+                                            <div class="dropdown-item">
+                                                <a (click)="searchBy(1)">Item's Name</a>
+                                            </div>
+                                            <div class="dropdown-item">
+                                                <a (click)="searchBy(2)">Item's Company</a>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="dropdown is-hoverable is-warning">
+                                    <div class="dropdown-trigger">
+                                        <button class="button is-info" aria-haspopup="true">
+                                            <span>Add New Stock</span>
+                                            <span class="icon is-small">
+                                                <i class="ri-arrow-drop-down-line" aria-hidden="true"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                        <div class="dropdown-content" style="width: fit-content;">
+                                            <div class="dropdown-item">
+                                                <a (click)="addItemStock()">Add Item Stock</a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-block" *ngIf="searchItemByName">
+
+                    <table class="table is-hoverable is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Item's Name</th>
+                                <th>Price Per Piece</th>
+                                <th>Stock Left</th>
+                                <th>Item's Company</th>
+                                <th>Modify Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let Item of findAllItems()|filter : searchField:1"  style="cursor:copy;" (click)="addItemToReceipt(Item)">
+                                <td>{{Item.name}}</td>
+                                <td>{{Item.pricePerPiece}}</td>
+                                <td>{{Item.stockLeft}}</td>
+                                <td>{{Item.company}}</td>
+                                <td><button class="button" (click)="modifyItem(Item)" >Modify</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-block" *ngIf="searchOtherStock">
+                    <table class="table is-hoverable is-fullwidth ">
+                        <thead>
+                            <tr>
+                                <th>Item's Name</th>
+                                <th>Price Per Piece</th>
+                                <th>Stock Left</th>
+                                <th>Property/Details</th>
+                                <th>Modify Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let otherStock of otherStocks|filter : searchField : 1" style="cursor: copy;"
+                                (click)="addItemToReceipt(otherStock)">
+                                <td>{{otherStock.name}}</td>
+                                <td>{{otherStock.pricePerPiece}}</td>
+                                <td>{{otherStock.stockLeft}}</td>
+                                <td>{{otherStock.formula}}</td>
+                                <td><button class="button" (click)="modifyItem(otherStock)">Modify</button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-block" *ngIf="searchItemByFormula">
+                    <table class="table is-hoverable is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Item's Name</th>
+                                <th>Price Per Piece</th>
+                                <th>Stock Left</th>
+                                <th>Item's Formula</th>
+                                <th>Modify Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let Item of Items|filter : searchField : 3" style="cursor: copy; "
+                                (click)="addItemToReceipt(Item)">
+                                <td>{{Item.name}}</td>
+                                <td>{{Item.pricePerPiece}}</td>
+                                <td>{{Item.stockLeft}}</td>
+                                <td>{{Item.formula}}</td>
+                                <td><button class="button" style="pointer-events: auto;" (click)="modifyItem(Item)">Modify</button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </div>
+        <div class="column is-7">
+            <app-receipt></app-receipt>
+
+        </div>
+    </div>
+</div>
+
+<!-- modal starts -->
+<div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
+    <div class="modal-background" (click)="toggleModal()"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Edit {{searchOtherStock?'Item':'Item'}} Details</p>
+            <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <form #editItemStockForm="ngForm" (ngSubmit)="onEditItemStockForm(editItemStockForm);">
+                <div class="rows">
+                    <div class="row">
+                        <label>
+                            {{modalItem?'Item Name':'Item Name'}}
+                            <input class="input" type="text" >
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            {{modalItem?'Item Price Per Piece':'Item Price Per Piece'}}
+                            <input class="input" type="number"  >
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            {{modalItem?'Item Formula':'Item Details/Property'}}
+                            <input class="input" type="text"  >
+                        </label>
+                    </div>
+                   
+                </div>
+            </form>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" type="submit" >Save Details</button>
+            <button class="button" (click)="toggleModal()">Cancel</button>
+        </footer>
+    </div>
+</div>
