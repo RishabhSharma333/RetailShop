@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { ReceiptComponent } from './shop/receipt/receipt.component';
 import { FilterPipe } from './filter.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { FilterPipe } from './filter.pipe';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,77 @@
-<p>receipt works!</p>
+<div class="row" *ngIf="receipt.size==0">
+    <div class="columns">
+        <div class="column">
+        </div>
+        <div class="column">
+            <h2 class="subtitle">Add items from left</h2>
+        </div>
+        <div class="column"></div>
+    </div>
+</div>
+<div class="row " *ngIf="receipt.size!=0">
+    <div class="column">
+        <div class="card" style="width: fit-content;">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Bill Details
+                    <i class="ri-file-list-2-line" aria-hidden="true"></i>
+                </p>
+            </header>
+            <table class="table is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th style="color: darkgrey;">Product Details</th>
+                        <th style="color: darkgrey;"> Price</th>
+                        <th></th>
+                        <th style="color: darkgrey;">Quantity</th>
+                        <th style="color: darkgrey;">Subtotoal</th>
+                        <th style="color: darkgrey;" *ngIf="totalBill==0"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of receipt">
+                        <td>{{item.name}}</td>
+                        <td style="width: 20%;"> <i class="ri-price-tag-3-line"></i> {{item.pricePerPiece}}</td>
+                        <td><i class="ri-close-line"></i></td>
+                        <td><div *ngIf="totalBill==0">
+                            <input type="number" class="input" style="width: 50%;" value="1" [(ngModel)]=item.quantity
+                                required>
+                            <p *ngIf="item.quantity<=0" style="color: red;"> Quantity cannot be zero
+                                or Negative
+                            </p>
+                        </div>
+                        <div *ngIf="totalBill!=0">
+                            {{item.quantity}}
+                        </div>
+                        </td>
+                        <td>{{(item.pricePerPiece>0&&item.quantity>0)?item.pricePerPiece*item.quantity:0}}</td>
+                        <td><a class="delete is-medium" (click)="removeItem(item)"*ngIf="totalBill==0" ></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="columns" *ngIf="totalBill==0">
+                <div class="column is-7">
+                </div>
+                <div class="column is-5">
+                    <div class="buttons">
+                        <button class="button is-info"  (click)="calculateTotal()">Calculate Total</button>
+                        <button class="button is-danger"(click)="cancelBill()"> Cancel </button>
+                    </div>
+                </div>
+            </div>
+            <label class="subtitle" *ngIf="totalBill!=0">
+                Total Bill:
+                <p style="font-weight: 400;">
+                    {{totalBill}}
+                </p>
+                <div class="buttons">
+                    <button class="button is-warning"(click)="editBill()">Edit Bill</button>
+                    <div class="button is-success " (click)="onConfirmBill()"> Confirm Bill</div>
+                </div>
+                
+            </label>
+        </div>
+    </div>
+</div>
+
+
