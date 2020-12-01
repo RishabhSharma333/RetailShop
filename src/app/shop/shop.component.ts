@@ -97,9 +97,9 @@ export class ShopComponent implements OnInit {
     if (this.receiptComponent.totalBill == 0&&(!this.isModalActive)) {
       // console.log(Item);
       Item.quantity = 1;
-      // delete Item.stockLeft;
+      delete Item.stockLeft;
       this.receiptComponent.receipt.add(Item);
-      // console.log(this.receiptComponent.receipt);
+      console.log(this.receiptComponent.receipt);
     }
 
   }
