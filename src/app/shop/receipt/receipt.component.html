@@ -29,23 +29,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of receipt">
-                        <td>{{item.name}}</td>
-                        <td style="width: 20%;"> <i class="ri-price-tag-3-line"></i> {{item.pricePerPiece}}</td>
+                    <tr *ngFor="let item of receipt | keyvalue">
+                        <td>{{item.key}}</td>
+                        <td style="width: 20%;"> <i class="ri-price-tag-3-line"></i> {{item.value.pricePerPiece}}</td>
                         <td><i class="ri-close-line"></i></td>
                         <td><div *ngIf="totalBill==0">
-                            <input type="number" class="input" style="width: 50%;" value="1" [(ngModel)]=item.quantity
+                            <input type="number" class="input" style="width: 50%;" value="1" [(ngModel)]=item.value.quantity
                                 required>
-                            <p *ngIf="item.quantity<=0" style="color: red;"> Quantity cannot be zero
+                            <p *ngIf="item.value.quantity<=0" style="color: red;"> Quantity cannot be zero
                                 or Negative
                             </p>
                         </div>
                         <div *ngIf="totalBill!=0">
-                            {{item.quantity}}
+                            {{item.value.quantity}}
                         </div>
                         </td>
-                        <td>{{(item.pricePerPiece>0&&item.quantity>0)?item.pricePerPiece*item.quantity:0}}</td>
-                        <td><a class="delete is-medium" (click)="removeItem(item)"*ngIf="totalBill==0" ></a></td>
+                        <td>{{(item.value.pricePerPiece>0&&item.value.quantity>0)?item.value.pricePerPiece*item.value.quantity:0}}</td>
+                        <td><a class="delete is-medium" (click)="removeItem(item.key)"*ngIf="totalBill==0" ></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -66,7 +66,6 @@
                 </p>
                 <div class="buttons">
                     <button class="button is-warning"(click)="editBill()">Edit Bill</button>
-                    <div class="button is-success " (click)="onConfirmBill()"> Confirm Bill</div>
                 </div>
                 
             </label>

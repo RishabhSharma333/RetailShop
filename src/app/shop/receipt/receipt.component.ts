@@ -9,18 +9,18 @@ import { Component, OnInit } from '@angular/core';
 export class ReceiptComponent implements OnInit {
   
   constructor() { }
-  receipt:any;
+  receipt=new Map();
   totalBill:number=0;
   ngOnInit(): void {
-    this.receipt=new Set();
+    this.receipt=new Map<string,any>();
   }
-  
-  removeItem(item:any){
+
+  removeItem(item:string){
     this.receipt.delete(item);
   }
   
   calculateTotal(){
-    for(let item of this.receipt){
+    for(let item of this.receipt.values()){
       if(item.quantity>0&&item.pricePerPiece>0)
       this.totalBill+=item.quantity*item.pricePerPiece;
     }
@@ -29,7 +29,7 @@ export class ReceiptComponent implements OnInit {
   }
 
   cancelBill(){
-    this.receipt=new Set();
+    this.receipt=new Map();
     this.totalBill=0;
   }
 

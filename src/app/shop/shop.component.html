@@ -68,7 +68,6 @@
                 </div>
 
                 <div class="panel-block" *ngIf="searchItemByName">
-
                     <table class="table is-hoverable is-fullwidth">
                         <thead>
                             <tr>
@@ -81,8 +80,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let Item of items | keyvalue " style="cursor: copy; "
-                                (click)="addItemToReceipt(Item.value)" > 
-                                <td>{{Item.value.name}}</td>
+                                (click)="addItemToReceipt(Item.key)" > 
+                                <td>{{Item.key}}</td>
                                 <td>{{Item.value.pricePerPiece}}</td>
                                 <td>{{Item.value.stockLeft}}</td>
                                 <td>{{Item.value.company}}</td>
@@ -105,8 +104,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let Item of items | keyvalue " style="cursor: copy; "
-                                (click)="addItemToReceipt(Item.value)" > 
-                                <td>{{Item.value.name}}</td>
+                                (click)="addItemToReceipt(Item.key)" > 
+                                <td>{{Item.key}}</td>
                                 <td>{{Item.value.pricePerPiece}}</td>
                                 <td>{{Item.value.stockLeft}}</td>
                                 <td>{{Item.value.company}}</td>
@@ -129,14 +128,14 @@
     <div class="modal-background" (click)="toggleModal()"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Edit Item Details Details</p>
+            <p class="modal-card-title">Edit {{editFormString!=''?editFormString:'Item'}} Details</p>
             <button class="delete" aria-label="close" (click)="toggleModal()"></button>
         </header>
         <section class="modal-card-body">
             <form [formGroup]="itemForm" (ngSubmit)="onSubmitItemForm()">
-                <!-- <p *ngIf="editFormId!=-1"> You are editing an item already added to receipt ,so it will be removed from receipt</p> -->
+               
                 <div class="rows" >
-                    <div class="row">
+                    <div class="row" *ngIf="editFormString==''">
                         <label>
                             Items Name:
                             <input class="input" type="text" formControlName="name">

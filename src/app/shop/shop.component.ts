@@ -19,7 +19,7 @@ export class ShopComponent implements OnInit {
   modalItem:boolean=false;
   stockNumber:number=1;
   items:any;
-  editFormId=-1;
+  editFormString:string='';
   itemForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
     pricePerPiece: new FormControl('',[Validators.required,Validators.min(0)]),
@@ -32,21 +32,21 @@ export class ShopComponent implements OnInit {
     this.searchItemByCompany=false;
     this.searchItemByName=true;
     this.searchField='';
-    this.editFormId=-1;
+    this.editFormString='';
     this.isModalActive=false;
     this.modalItem=false;
-    this.items=new Map<number,any>();
-    this.items.set(this.stockNumber++,{name:'items 1',company:'company 1',pricePerPiece:12,stockLeft:45});
-    this.items.set(this.stockNumber++,{name:'items 2',company:'company 2',pricePerPiece:2,stockLeft:5});
-    this.items.set(this.stockNumber++,{name:'items 3',company:'company 3',pricePerPiece:42,stockLeft:4});
-    this.items.set(this.stockNumber++,{name:'items 4',company:'company 4',pricePerPiece:72,stockLeft:43});
-    this.items.set(this.stockNumber++,{name:'items 5',company:'company 5',pricePerPiece:92,stockLeft:3});
-    this.items.set(this.stockNumber++,{name:'items 6',company:'company 6',pricePerPiece:62,stockLeft:50});
-    this.items.set(this.stockNumber++,{name:'items 7',company:'company 7',pricePerPiece:15,stockLeft:40});
-    this.items.set(this.stockNumber++,{name:'items 8',company:'company 4',pricePerPiece:7,stockLeft:46});
-    this.items.set(this.stockNumber++,{name:'items 9',company:'company 5',pricePerPiece:92,stockLeft:3});
-    this.items.set(this.stockNumber++,{name:'items a',company:'company 6',pricePerPiece:42,stockLeft:0});
-    this.items.set(this.stockNumber++,{name:'items b',company:'company 7',pricePerPiece:65,stockLeft:41});
+    this.items=new Map<string,any>();
+    this.items.set('items 1',{company:'company 1',pricePerPiece:12,stockLeft:45});
+    this.items.set('items 2',{company:'company 2',pricePerPiece:2,stockLeft:5});
+    this.items.set('items 3',{company:'company 3',pricePerPiece:42,stockLeft:4});
+    this.items.set('items 4',{company:'company 4',pricePerPiece:72,stockLeft:43});
+    this.items.set('items 5',{company:'company 5',pricePerPiece:92,stockLeft:3});
+    this.items.set('items 6',{company:'company 6',pricePerPiece:62,stockLeft:50});
+    this.items.set('items 7',{company:'company 7',pricePerPiece:15,stockLeft:40});
+    this.items.set('items 8',{company:'company 4',pricePerPiece:7,stockLeft:46});
+    this.items.set('items 9',{company:'company 5',pricePerPiece:92,stockLeft:3});
+    this.items.set('items a',{company:'company 6',pricePerPiece:42,stockLeft:0});
+    this.items.set('items b',{company:'company 7',pricePerPiece:65,stockLeft:41});
   }
   toggleModal(){
     this.isModalActive = !this.isModalActive;
@@ -64,20 +64,21 @@ export class ShopComponent implements OnInit {
 
   addItemStock(){
     this.itemForm.reset();
-    this.editFormId=-1;
+    this.editFormString='';
     this.toggleModal();
 
   }
 
-  modifyItem(itemKey:any){
+  modifyItem(itemKey:string){
     this.itemForm.reset();
     this.toggleModal();
     var itemValue=this.items.get(itemKey);
-    this.itemForm.get('name').setValue(itemValue.name);
+    this.receiptComponent.removeItem(itemKey);
+    this.itemForm.get('name').setValue(itemKey);
     this.itemForm.get('pricePerPiece').setValue(itemValue.pricePerPiece);
     this.itemForm.get('company').setValue(itemValue.company);
     this.itemForm.get('stockLeft').setValue(itemValue.stockLeft);  
-    this.editFormId=itemKey;
+    this.editFormString=itemKey;
     // console.log(itemValue);
   }
   get name(){
@@ -93,12 +94,13 @@ export class ShopComponent implements OnInit {
   get stockLeft(){
     return this.itemForm.get('stockLeft');
   }
-  addItemToReceipt(Item: any) {
+  addItemToReceipt(Item: string) {
     if (this.receiptComponent.totalBill == 0&&(!this.isModalActive)) {
       // console.log(Item);
-      Item.quantity = 1;
-      delete Item.stockLeft;
-      this.receiptComponent.receipt.add(Item);
+      var value=this.items.get(Item);
+      value.quantity=1;
+      // delete value.stockLeft;
+      this.receiptComponent.receipt.set(Item,value);
       console.log(this.receiptComponent.receipt);
     }
 
@@ -107,14 +109,12 @@ export class ShopComponent implements OnInit {
     console.log(editItemStockForm);
   }
   onSubmitItemForm(){
-    // console.log(this.itemForm);
-    // console.log('printing id   '  +this.editFormId);
-    if(this.editFormId==-1){
-      this.items.set(this.stockNumber++,{name:this.itemForm.value.name, company:this.itemForm.value.company,pricePerPiece:this.itemForm.value.pricePerPiece,stockLeft:this.itemForm.value.stockLeft});
+    if(this.editFormString==''){
+      this.items.set(this.itemForm.value.name,{company:this.itemForm.value.company,pricePerPiece:this.itemForm.value.pricePerPiece,stockLeft:this.itemForm.value.stockLeft});
     }
     else{
-      this.items.delete(this.editFormId);
-      this.items.set(this.editFormId,{name:this.itemForm.value.name, company:this.itemForm.value.company,pricePerPiece:this.itemForm.value.pricePerPiece,stockLeft:this.itemForm.value.stockLeft})
+      this.items.delete(this.editFormString);
+      this.items.set(this.editFormString,{company:this.itemForm.value.company,pricePerPiece:this.itemForm.value.pricePerPiece,stockLeft:this.itemForm.value.stockLeft})
       
     }
     this.toggleModal();
