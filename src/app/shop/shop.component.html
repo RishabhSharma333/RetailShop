@@ -2,7 +2,7 @@
 <div class="row">
     <div class="columns">
         <div class="column is-5">
-            <article class="panel">
+            <article class="panel is-danger">
                 <p class="panel-heading">
                     Item Stock
                 </p>
@@ -43,10 +43,11 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="column">
                                 <div class="dropdown is-hoverable is-warning">
                                     <div class="dropdown-trigger">
-                                        <button class="button is-info" aria-haspopup="true">
+                                        <button class="button is-danger" aria-haspopup="true">
                                             <span>Add New Stock</span>
                                             <span class="icon is-small">
                                                 <i class="ri-arrow-drop-down-line" aria-hidden="true"></i>
@@ -79,9 +80,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let Item of items | keyvalue " style="cursor: copy; "
+                            <tr *ngFor="let Item of items | filter:searchField:1" style="cursor: copy;"
                                 (click)="addItemToReceipt(Item.key)" > 
-                                <td>{{Item.key}}</td>
+                                <td>{{Item.key}} </td>
                                 <td>{{Item.value.pricePerPiece}}</td>
                                 <td>{{Item.value.stockLeft}}</td>
                                 <td>{{Item.value.company}}</td>
@@ -103,7 +104,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let Item of items | keyvalue " style="cursor: copy; "
+                            <tr *ngFor="let Item of items |filter : searchField :2" style="cursor: copy;"
                                 (click)="addItemToReceipt(Item.key)" > 
                                 <td>{{Item.key}}</td>
                                 <td>{{Item.value.pricePerPiece}}</td>
