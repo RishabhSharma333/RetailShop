@@ -36,17 +36,17 @@ export class ShopComponent implements OnInit {
     this.isModalActive=false;
     this.modalItem=false;
     this.items=new Map<string,any>();
-    this.items.set('items a',{company:'company a',pricePerPiece:12,stockLeft:45});
-    this.items.set('items b',{company:'company b',pricePerPiece:2,stockLeft:5});
-    this.items.set('items c',{company:'company c',pricePerPiece:42,stockLeft:4});
-    this.items.set('items d',{company:'company d',pricePerPiece:72,stockLeft:43});
-    this.items.set('items e',{company:'company a',pricePerPiece:92,stockLeft:3});
-    this.items.set('items f',{company:'company b',pricePerPiece:62,stockLeft:50});
-    this.items.set('items g',{company:'company c',pricePerPiece:15,stockLeft:40});
-    this.items.set('items h',{company:'company d',pricePerPiece:7,stockLeft:46});
-    this.items.set('items i',{company:'company e',pricePerPiece:92,stockLeft:3});
-    this.items.set('items j',{company:'company d',pricePerPiece:42,stockLeft:0});
-    this.items.set('items k',{company:'company f',pricePerPiece:65,stockLeft:41});
+    this.items.set('ahav',{company:'company abc',pricePerPiece:12,stockLeft:45});
+    this.items.set('same',{company:'company bca',pricePerPiece:2,stockLeft:5});
+    this.items.set('card',{company:'company cab',pricePerPiece:42,stockLeft:4});
+    this.items.set('tabe',{company:'company dca',pricePerPiece:72,stockLeft:43});
+    this.items.set('tube',{company:'company abc',pricePerPiece:92,stockLeft:3});
+    this.items.set('samu',{company:'company bca',pricePerPiece:62,stockLeft:50});
+    this.items.set('gxxc',{company:'company cba',pricePerPiece:15,stockLeft:40});
+    this.items.set('deta',{company:'company dca',pricePerPiece:7,stockLeft:46});
+    this.items.set('alfa',{company:'company eac',pricePerPiece:92,stockLeft:3});
+    this.items.set('alfo',{company:'company dca',pricePerPiece:42,stockLeft:0});
+    this.items.set('beta',{company:'company fed',pricePerPiece:65,stockLeft:41});
   }
 
   toggleModal(){
