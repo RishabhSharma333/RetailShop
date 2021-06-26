@@ -22,9 +22,9 @@ export class ShopComponent implements OnInit {
   editFormString:string='';
   itemForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
-    pricePerPiece: new FormControl('',[Validators.required,Validators.min(0)]),
+    pricePerPiece: new FormControl('',[Validators.required,Validators.min(1)]),
     company:new FormControl('',),
-    stockLeft:new FormControl('',[Validators.required,Validators.min(0)])
+    stockLeft:new FormControl('',[Validators.required,Validators.min(1)])
   });
   constructor() { }
 
