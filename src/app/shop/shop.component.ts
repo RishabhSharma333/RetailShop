@@ -45,7 +45,7 @@ export class ShopComponent implements OnInit {
     this.items.set('Staples',{company:'Fortune',pricePerPiece:15,stockLeft:40});
     this.items.set('Oil',{company:'Fortune',pricePerPiece:7,stockLeft:46});
     this.items.set('Snacks',{company:'Kurkure',pricePerPiece:92,stockLeft:3});
-    this.items.set('Biscuits',{company:'Herbal',pricePerPiece:42,stockLeft:0});
+    this.items.set('Biscuits',{company:'Herbal',pricePerPiece:42,stockLeft:3});
     this.items.set('Milk',{company:'Amul',pricePerPiece:65,stockLeft:41});
   }
 
