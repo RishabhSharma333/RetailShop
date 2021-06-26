@@ -37,7 +37,10 @@
                             <input type="number" class="input" style="width: 50%;" value="1" [(ngModel)]=item.value.quantity
                                 required>
                             <p *ngIf="item.value.quantity<=0" style="color: red;"> Quantity cannot be zero
-                                or Negative
+                                or negative
+                            </p>
+                            <p *ngIf="item.value.quantity>item.value.stockLeft" style="color: red;"> Quantity cannot be 
+                                greater than stock 
                             </p>
                         </div>
                         <div *ngIf="totalBill!=0">
