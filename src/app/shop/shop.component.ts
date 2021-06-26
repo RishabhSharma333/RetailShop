@@ -36,17 +36,17 @@ export class ShopComponent implements OnInit {
     this.isModalActive=false;
     this.modalItem=false;
     this.items=new Map<string,any>();
-    this.items.set('ahav',{company:'company abc',pricePerPiece:12,stockLeft:45});
-    this.items.set('same',{company:'company bca',pricePerPiece:2,stockLeft:5});
-    this.items.set('card',{company:'company cab',pricePerPiece:42,stockLeft:4});
-    this.items.set('tabe',{company:'company dca',pricePerPiece:72,stockLeft:43});
-    this.items.set('tube',{company:'company abc',pricePerPiece:92,stockLeft:3});
-    this.items.set('samu',{company:'company bca',pricePerPiece:62,stockLeft:50});
-    this.items.set('gxxc',{company:'company cba',pricePerPiece:15,stockLeft:40});
-    this.items.set('deta',{company:'company dca',pricePerPiece:7,stockLeft:46});
-    this.items.set('alfa',{company:'company eac',pricePerPiece:92,stockLeft:3});
-    this.items.set('alfo',{company:'company dca',pricePerPiece:42,stockLeft:0});
-    this.items.set('beta',{company:'company fed',pricePerPiece:65,stockLeft:41});
+    this.items.set('Maggie',{company:'Nestle',pricePerPiece:12,stockLeft:45});
+    this.items.set('Noodles',{company:'Maggie',pricePerPiece:2,stockLeft:5});
+    this.items.set('Kechup',{company:'Nestle',pricePerPiece:42,stockLeft:4});
+    this.items.set('Bottle',{company:'Cello',pricePerPiece:72,stockLeft:43});
+    this.items.set('Popcorn',{company:'Act Two',pricePerPiece:92,stockLeft:3});
+    this.items.set('Jam',{company:'Amul',pricePerPiece:62,stockLeft:50});
+    this.items.set('Staples',{company:'Fortune',pricePerPiece:15,stockLeft:40});
+    this.items.set('Oil',{company:'Fortune',pricePerPiece:7,stockLeft:46});
+    this.items.set('Snacks',{company:'Kurkure',pricePerPiece:92,stockLeft:3});
+    this.items.set('Biscuits',{company:'Herbal',pricePerPiece:42,stockLeft:0});
+    this.items.set('Milk',{company:'Amul',pricePerPiece:65,stockLeft:41});
   }
 
   toggleModal(){
